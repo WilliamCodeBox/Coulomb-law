@@ -26,3 +26,16 @@ def chargeByGivenForce(q, dis, force):
 
 def distanceBtwnTwoCharges(q1, q2, forece):
     return np.sqrt(k * q1 * q2 / forece)
+
+
+""" 
+
+The positon of point charges can be represented by its position vector r = (x, y, z)
+
+Given two position vectors of two point charges, r1, r2, the coulomb's law can be written as
+
+F12 = Q1 * Q2 * (r2 - r1) / (4 * PI * eps0 * R^3)
+
+where R = abs(r2 - r1)
+
+"""
