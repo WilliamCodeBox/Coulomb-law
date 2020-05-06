@@ -39,3 +39,9 @@ F12 = Q1 * Q2 * (r2 - r1) / (4 * PI * eps0 * R^3)
 where R = abs(r2 - r1)
 
 """
+
+
+def vectorizedCoulomb(q1, v1, q2, v2):
+    dis = (v2 - v1).norm()
+    force = q1 * q2 / (4.0 * np.pi * eps0 * np.pow(dis, 2))
+    return force, (v2 - v1) / dis
