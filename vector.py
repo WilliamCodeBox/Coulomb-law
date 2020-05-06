@@ -35,6 +35,12 @@ class Vector(object):
         """ Point vectors subtraction gives the distance vector """
         return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
 
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y, self.z + other.z)
+
+    def __mul__(self, a):
+        return Vector(self.x * a, self.y * a, self.z * a)
+
     def __truediv__(self, a):
         return Vector(self.x / a, self.y / a, self.z / a)
 
