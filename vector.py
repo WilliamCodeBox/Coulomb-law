@@ -62,8 +62,6 @@ if __name__ == "__main__":
     print(a)
     a = a * 3
     print(a)
-    d = a * a
-    print(d)
     b = Vector(1, 0, 0)
     c = a - b
     print(c)
@@ -72,3 +70,5 @@ if __name__ == "__main__":
 
     unit = c / dis
     print(unit)
+
+    print(type(unit))

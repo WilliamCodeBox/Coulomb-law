@@ -11,20 +11,24 @@ In SI units:
 """
 
 import numpy as np
+from vector import Vector
+from typing import Union, List, Tuple
+
+T = Union[int, float]
 
 eps0 = 8.854 * 1.0e-12  # free space permittivity
 k = 1.0 / (4.0 * np.pi * eps0)
 
 
-def forceBtwnTwoCharges(q1, q2, dis):
+def forceBtwnTwoCharges(q1: T, q2: T, dis: T) -> float:
     return k * q1 * q2 / np.pow(dis, 2)
 
 
-def chargeByGivenForce(q, dis, force):
+def chargeByGivenForce(q: T, dis: T, force: T) -> float:
     return force * np.pow(dis, 2) / (k * q)
 
 
-def distanceBtwnTwoCharges(q1, q2, forece):
+def distanceBtwnTwoCharges(q1: T, q2: T, forece: T) -> float:
     return np.sqrt(k * q1 * q2 / forece)
 
 
@@ -41,7 +45,7 @@ where R = abs(r2 - r1)
 """
 
 
-def vectorizedCoulomb(q1, v1, q2, v2):
+def vectorizedCoulomb(q1: T, v1, q2: T, v2) -> Tuple[object, float, object]:
     dis = (v2 - v1).norm()
     force = q1 * q2 / (4.0 * np.pi * eps0 * np.pow(dis, 2))
     uniVec = (v2 - v1) / dis
@@ -57,8 +61,6 @@ The resultant force F on a charge Q located at point vector r is
 the vector sum of the forces exerted on Q by each of the charges Q1, Q2, ..., QN,
 
 """
-
-from vector import Vector
 
 
 def multiCharges(q, v, Q, V):
