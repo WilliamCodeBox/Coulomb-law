@@ -45,7 +45,8 @@ where R = abs(r2 - r1)
 """
 
 
-def vectorizedCoulomb(q1: T, v1, q2: T, v2) -> Tuple[object, float, object]:
+def vectorizedCoulomb(q1: T, v1: Vector, q2: T,
+                      v2: Vector) -> Tuple[Vector, float, Vector]:
     dis = (v2 - v1).norm()
     force = q1 * q2 / (4.0 * np.pi * eps0 * np.pow(dis, 2))
     uniVec = (v2 - v1) / dis
@@ -63,7 +64,8 @@ the vector sum of the forces exerted on Q by each of the charges Q1, Q2, ..., QN
 """
 
 
-def multiCharges(q, v, Q, V):
+def multiCharges(q: T, v: Vector, Q: List[T],
+                 V: List[Vector]) -> Tuple[Vector, float, Vector]:
     N = len(Q)
     assert (N == len(V))
 
@@ -106,11 +108,31 @@ we can move the sign of Q into u
 """
 
 
-def ElecFieldOfPointCharge(q, v0, v):
+def ElecFieldOfPointCharge(q: T, v0: Vector,
+                           v: Vector) -> Tuple[Vector, float, Vector]:
     dis = (v - v0).norm()
     intensity = np.abs(q) / (4.0 * np.pi * eps0 * np.power(dis, 2))
     uniVec = (q / np.abs(q)) * (v - v0) / dis
     Efield = intensity * uniVec
+
+    return Efield, intensity, uniVec
+
+
+def ElecFieldOfMultiCharges(Q: List[T], V: List[Vector], v):
+    factor = 1.0 / (4.0 * np.pi * eps0)
+
+    N = len(Q)
+    assert (N == len(V))
+
+    sum = Vector(0.0, 0.0, 0.0)
+
+    for idx in np.arange(0, N):
+        dis = (v - V[idx]).norm()
+        sum = sum + Q[idx] * (v - V[idx]) / np.power(dis, 3)
+
+    Efield = factor * sum
+    intensity = Efield.norm()
+    uniVec = Efield / intensity
 
     return Efield, intensity, uniVec
 
@@ -127,3 +149,22 @@ if __name__ == "__main__":
 
     res, force, uniVec = multiCharges(q, v, [q1, q2], [v1, v2])
     print(res * 1e3, force, uniVec)
+
+    E, intensity, uniVec = ElecFieldOfMultiCharges([q1, q2], [v1, v2], v)
+    print(E / 1e3)
+
+if __name__ == "__main__":
+    q1 = 5e-9
+    v1 = Vector(2, 0, 4)
+
+    q2 = -2e-9
+    v2 = Vector(-3, 0, 5)
+
+    q = 1e-9
+    v = Vector(1, -3, 7)
+
+    res, _, _ = multiCharges(q, v, [q1, q2], [v1, v2])
+    print(res / 1e-9)
+
+    E, _, _ = ElecFieldOfMultiCharges([q1, q2], [v1, v2], v)
+    print(E)
