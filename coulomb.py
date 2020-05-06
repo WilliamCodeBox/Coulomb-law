@@ -78,6 +78,41 @@ def multiCharges(q, v, Q, V):
     return result, force, uniVec
 
 
+""" 
+
+Electric field intensity or Electric field strength 
+
+is the force that a unit positive charge experiences when placed in an electric field
+
+The electric field intensity at point r due to a point charge Q located at r0 is 
+
+E = Q * (r - r0) / (4 * PI * eps0 * R^3)
+
+where R = abs(r - r0)
+
+Or simply
+
+E = Q / (4 * PI * eps0 * R^2) * u
+
+where u is the unit vector pointing from r0 to r
+
+When Q is negative, E is directing from r to r0
+When Q is positive, E is directing from r0 to r
+
+we can move the sign of Q into u
+
+"""
+
+
+def ElecFieldOfPointCharge(q, v0, v):
+    dis = (v - v0).norm()
+    intensity = np.abs(q) / (4.0 * np.pi * eps0 * np.power(dis, 2))
+    uniVec = (q / np.abs(q)) * (v - v0) / dis
+    Efield = intensity * uniVec
+
+    return Efield, intensity, uniVec
+
+
 if __name__ == "__main__":
     q1 = 1e-3
     v1 = Vector(3, 2, -1)
