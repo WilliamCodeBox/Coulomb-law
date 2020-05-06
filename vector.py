@@ -32,17 +32,27 @@ class Vector(object):
         self._z = z
 
     def __sub__(self, other):
+        """ Point vectors subtraction gives the distance vector """
         return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
+
+    def __truediv__(self, a):
+        return Vector(self.x / a, self.y / a, self.z / a)
 
     def norm(self):
         return np.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
 
+    def __str__(self):
+        return f"{self.x, self.y, self.z}"
+
 
 if __name__ == "__main__":
     a = Vector(0, 0, 0)
-    print(f"{a.x, a.y, a.z}")
+    print(a)
     b = Vector(1, 0, 0)
     c = a - b
-    print(f"{c.x, c.y, c.z}")
-    norm_c = c.norm()
-    print(norm_c)
+    print(c)
+    dis = c.norm()
+    print(dis)
+
+    unit = c / dis
+    print(unit)
