@@ -41,6 +41,9 @@ class Vector(object):
     def __mul__(self, a):
         return Vector(self.x * a, self.y * a, self.z * a)
 
+    def __rmul__(self, a):
+        return Vector(a * self.x, a * self.y, a * self.z)
+
     def __truediv__(self, a):
         return Vector(self.x / a, self.y / a, self.z / a)
 
@@ -53,6 +56,10 @@ class Vector(object):
 
 if __name__ == "__main__":
     a = Vector(0, 0, 0)
+    print(a)
+    a = a * 3
+    print(a)
+    a = 3 * a
     print(a)
     b = Vector(1, 0, 0)
     c = a - b
