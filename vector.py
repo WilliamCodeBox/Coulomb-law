@@ -7,27 +7,29 @@ class Vector(object):
         self._y = y
         self._z = z
 
-    def get_x(self):
+    @property
+    def x(self):
         return self._x
 
-    def set_x(self, x):
+    @x.setter
+    def x(self, x):
         self._x = x
 
-    def get_y(self):
+    @property
+    def y(self):
         return self._y
 
-    def set_y(self, y):
+    @y.setter
+    def y(self, y):
         self._y = y
 
-    def get_z(self):
+    @property
+    def z(self):
         return self._z
 
-    def set_z(self, z):
+    @z.setter
+    def z(self, z):
         self._z = z
-
-    x = property(get_x, set_x)
-    y = property(get_y, set_y)
-    z = property(get_z, set_z)
 
     def __sub__(self, other):
         return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
